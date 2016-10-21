@@ -1,0 +1,14 @@
+# IDEA/Studio files
+/.idea/
+*.iml
+
+# Gradle build folders
+/build/
+/app/build/
+/reporter/build/
+
+# Gradle task cache
+/.gradle/
+
+# Studio local.properties
+local.properties

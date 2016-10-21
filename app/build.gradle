@@ -1,0 +1,17 @@
+apply plugin: 'com.android.application'
+
+android {
+  buildToolsVersion '24.0.3'
+  compileSdkVersion 24
+
+  defaultConfig {
+    applicationId 'pink.madis.perftesting.sample'
+    versionName '1.0.0'
+    versionCode 1
+  }
+}
+
+dependencies {
+  testCompile 'junit:junit:4.12'
+  testCompile project(':reporter')
+}
