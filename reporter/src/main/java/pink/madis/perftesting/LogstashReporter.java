@@ -7,7 +7,8 @@ import retrofit2.http.Headers;
 import retrofit2.http.PUT;
 
 /**
- * Simple Retrofit REST endpoint that can send test results to logstash
+ * Simple Retrofit REST endpoint that
+ * can send test results to logstash
  */
 interface LogstashReporter {
     @PUT("/")

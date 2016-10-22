@@ -42,7 +42,7 @@ public class MainActivity extends Activity {
                 throw new IllegalArgumentException("ReporterAsyncTask needs exactly one long as params");
             }
             // only works on emulator!
-            Reporter reporter = new Reporter("10.0.2.2", "1.0.0");
+            Reporter reporter = new Reporter("10.0.2.2", BuildConfig.VERSION_NAME);
             try {
                 reporter.measureAndReport("startup", params[0]);
             } catch (IOException e) {
