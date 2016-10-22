@@ -26,6 +26,7 @@ android.applicationVariants.all { variant ->
     // not installable, cannot measure startup either
     return
   }
+  // attach our task to all installable variants
   task "measure${variant.name.capitalize()}Startup"(type: DefaultTask) {
     dependsOn variant.install
     doFirst {
@@ -44,7 +45,9 @@ android.applicationVariants.all { variant ->
         ].execute().text)
 
         // wait for a while and repeat.
-        // Ideally we would signal being done somehow instead
+        // Ideally we would signal being done somehow instead, this needs to be
+        // bigger if a startup takes longer than 250ms, otherwise we end up killing
+        // our app mid-measurement
         Thread.sleep(250)
       }
     }
