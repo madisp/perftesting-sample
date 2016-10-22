@@ -5,7 +5,7 @@ performance testing" talk given at Mobilization 2016.
 
 ## Slides
 
-[Here.](http://speakerdeck.com/madis)
+[Here.](https://speakerdeck.com/madisp/how-jrebel-for-android-does-performance-testing)
 
 ## Setting up Elasticsearch & Logstash & Kibana
 
