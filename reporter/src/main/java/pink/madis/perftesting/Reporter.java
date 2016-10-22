@@ -1,7 +1,8 @@
 package pink.madis.perftesting;
 
-import java.util.concurrent.Callable;
+import java.io.IOException;
 
+import okhttp3.HttpUrl;
 import retrofit2.Retrofit;
 import retrofit2.converter.moshi.MoshiConverterFactory;
 
@@ -9,34 +10,25 @@ public class Reporter {
     private final LogstashReporter reporter;
     private final String version;
 
-    public Reporter(String version) {
+    public Reporter(String host, String version) {
         this.version = version;
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://localhost:1138/")
+                .baseUrl(
+                    new HttpUrl.Builder().scheme("http").host(host).port(1138).build()
+                )
                 .addConverterFactory(MoshiConverterFactory.create())
                 .build();
 
         reporter = retrofit.create(LogstashReporter.class);
     }
 
-    public void measureAndReport(int repeatNumber, String testName, Callable<Void> action) throws Exception {
-        long start = System.nanoTime();
-        action.call();
-        long end = System.nanoTime();
-
-        long timeMs = getDurationMillis(start, end);
-        System.out.println("Sample " + testName + "#" + repeatNumber + " - " + timeMs + "ms");
-
+    public void measureAndReport(String testName, long timeMs) throws IOException {
+        System.out.println("Sample " + testName + " - " + timeMs + "ms");
         PerfTestResult result = new PerfTestResult();
         result.test = testName;
         result.timeMillis = timeMs;
         result.version = version;
-
         reporter.reportResult(result).execute();
-    }
-
-    private long getDurationMillis(long startNanos, long endNanos) {
-        return (endNanos - startNanos) / 1000000;
     }
 }

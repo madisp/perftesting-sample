@@ -6,7 +6,6 @@ import org.junit.runners.model.Statement;
 
 class RepeatRule implements TestRule {
     private final int repeats;
-    private int counter;
 
     RepeatRule(int repeats) {
         if (repeats <= 0) {
@@ -20,14 +19,10 @@ class RepeatRule implements TestRule {
         return new Statement() {
             @Override
             public void evaluate() throws Throwable {
-                for (counter = 0; counter < repeats; counter++) {
+                for (int i = 0; i < repeats; i++) {
                     base.evaluate();
                 }
             }
         };
-    }
-
-    int getRepeatNumber() {
-        return counter;
     }
 }

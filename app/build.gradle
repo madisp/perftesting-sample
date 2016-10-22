@@ -8,10 +8,46 @@ android {
     applicationId 'pink.madis.perftesting.sample'
     versionName '1.0.0'
     versionCode 1
+
+    minSdkVersion 19
+    targetSdkVersion 24
   }
 }
 
 dependencies {
+  compile project(':reporter')
+//  compile 'joda-time:joda-time:2.9.4'
+//  compile 'net.danlew:android.joda:2.9.4.2'
+
   testCompile 'junit:junit:4.12'
-  testCompile project(':reporter')
+}
+
+android.applicationVariants.all { variant ->
+  if (!variant.install) {
+    // not installable, cannot measure startup either
+    return
+  }
+  task "measure${variant.name.capitalize()}Startup"(type: DefaultTask) {
+    dependsOn variant.install
+    doFirst {
+      def adb = android.adbExecutable
+      (0..40).each { repeatNr ->
+        // kill the app
+        println([
+            adb, "shell", "am", "force-stop",
+            variant.applicationId
+        ].execute().text)
+
+        // measure
+        println([
+            adb, "shell", "am", "start",
+            "${variant.applicationId}/.MeasureActivity"
+        ].execute().text)
+
+        // wait for a while and repeat.
+        // Ideally we would signal being done somehow instead
+        Thread.sleep(250)
+      }
+    }
+  }
 }
