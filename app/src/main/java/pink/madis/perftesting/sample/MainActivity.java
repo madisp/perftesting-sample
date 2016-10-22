@@ -20,9 +20,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.main);
         TextView tv = (TextView) findViewById(R.id.hello);
 
-//        net.danlew.android.joda.JodaTimeAndroid.init(this);
-//        tv.setText(getString(R.string.cur_time, org.joda.time.DateTime.now().toString()));
-        tv.setText(getString(R.string.cur_time, new Date().toString()));
+        net.danlew.android.joda.JodaTimeAndroid.init(this);
+        tv.setText(getString(R.string.cur_time, org.joda.time.DateTime.now().toString()));
     }
 
     @Override
