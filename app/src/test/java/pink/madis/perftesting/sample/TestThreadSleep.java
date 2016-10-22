@@ -3,6 +3,8 @@ package pink.madis.perftesting.sample;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.util.Random;
+
 import pink.madis.perftesting.Reporter;
 
 public class TestThreadSleep {
@@ -10,7 +12,7 @@ public class TestThreadSleep {
     @Rule
     public RepeatRule repeatRule = new RepeatRule(25);
 
-    private Reporter reporter = new Reporter("localhost", "1.0.0");
+    private Reporter reporter = new Reporter("localhost", BuildConfig.VERSION_NAME);
 
     @Test
     public void testSleepsForOneSecond() throws Exception {
