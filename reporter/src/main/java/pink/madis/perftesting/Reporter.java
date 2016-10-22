@@ -23,7 +23,7 @@ public class Reporter {
         reporter = retrofit.create(LogstashReporter.class);
     }
 
-    public void measureAndReport(String testName, long timeMs) throws IOException {
+    public void reportMeasurement(String testName, long timeMs) throws IOException {
         System.out.println("Sample " + testName + " - " + timeMs + "ms");
         PerfTestResult result = new PerfTestResult();
         result.test = testName;

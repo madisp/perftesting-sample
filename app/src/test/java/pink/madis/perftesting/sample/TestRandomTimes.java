@@ -25,7 +25,7 @@ public class TestRandomTimes {
                 // introduce regression
                 timeMs += 400;
             }
-            reporter.measureAndReport("consistency", timeMs);
+            reporter.reportMeasurement("consistency", timeMs);
             Thread.sleep(200);
         }
     }

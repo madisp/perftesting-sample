@@ -7,6 +7,7 @@ import android.os.SystemClock;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.util.Date;
 
 import pink.madis.perftesting.Reporter;
 
@@ -21,7 +22,7 @@ public class MainActivity extends Activity {
 
 //        net.danlew.android.joda.JodaTimeAndroid.init(this);
 //        tv.setText(getString(R.string.cur_time, org.joda.time.DateTime.now().toString()));
-        tv.setText(getString(R.string.cur_time, "now"));
+        tv.setText(getString(R.string.cur_time, new Date().toString()));
     }
 
     @Override
@@ -44,7 +45,7 @@ public class MainActivity extends Activity {
             // only works on emulator!
             Reporter reporter = new Reporter("10.0.2.2", BuildConfig.VERSION_NAME);
             try {
-                reporter.measureAndReport("startup", params[0]);
+                reporter.reportMeasurement("startup", params[0]);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
